@@ -1,0 +1,47 @@
+name: Refresh songs
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch latest songs from iTunes
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request
+          url = "https://itunes.apple.com/lookup?id=1330022393&entity=song&limit=200&country=HK"
+          with urllib.request.urlopen(url, timeout=30) as r:
+              data = json.load(r)
+          tracks = [it for it in data.get("results", [])
+                    if it.get("wrapperType") == "track" and it.get("kind") == "song"]
+          tracks.sort(key=lambda t: t.get("releaseDate", ""), reverse=True)
+          songs = []
+          seen = set()
+          for it in tracks:
+              title = it.get("trackName")
+              if not title or title in seen:
+                  continue
+              seen.add(title)
+              art = it.get("artworkUrl100", "").replace("100x100bb.jpg", "600x600bb.jpg")
+              songs.append({"title": title,
+                            "apple_url": it.get("trackViewUrl", ""),
+                            "art": art})
+          with open("songs.json", "w", encoding="utf-8") as f:
+              json.dump({"songs": songs}, f, ensure_ascii=False, indent=2)
+          print("wrote", len(songs), "songs")
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add songs.json
+          git diff --cached --quiet || git commit -m "Refresh songs from iTunes"
+          git push
