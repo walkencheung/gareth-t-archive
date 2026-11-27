@@ -33,7 +33,8 @@ jobs:
               art = it.get("artworkUrl100", "").replace("100x100bb.jpg", "600x600bb.jpg")
               songs.append({"title": title,
                             "apple_url": it.get("trackViewUrl", ""),
-                            "art": art})
+                            "art": art,
+                            "preview": it.get("previewUrl", "")})
           with open("songs.json", "w", encoding="utf-8") as f:
               json.dump({"songs": songs}, f, ensure_ascii=False, indent=2)
           print("wrote", len(songs), "songs")
