@@ -27,9 +27,17 @@ jobs:
               rm "$f"
             fi
           done
+          if [ -d assets/album/full/full ]; then
+            mv assets/album/full/full/*.jpg assets/album/full/
+            rmdir assets/album/full/full
+          fi
           if [ -f assets/album/thumb.zip ]; then
             unzip -o assets/album/thumb.zip -d assets/album/thumb
             rm assets/album/thumb.zip
+          fi
+          if [ -d assets/album/thumb/thumb ]; then
+            mv assets/album/thumb/thumb/*.jpg assets/album/thumb/
+            rmdir assets/album/thumb/thumb
           fi
       - name: Commit extracted photos
         run: |
