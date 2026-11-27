@@ -1,0 +1,28 @@
+name: Fix thumbnail paths
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-thumb.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Flatten nested thumbnail folder
+        run: |
+          if [ -d assets/album/thumb/thumb ]; then
+            mv assets/album/thumb/thumb/*.jpg assets/album/thumb/
+            rmdir assets/album/thumb/thumb
+          fi
+      - name: Commit flattened thumbnails
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A assets/album
+          git diff --cached --quiet || git commit -m "Flatten nested thumbnail folder"
+          git push
