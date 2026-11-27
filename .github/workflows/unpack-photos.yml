@@ -1,0 +1,35 @@
+name: Unpack photo archives
+
+on:
+  push:
+    paths:
+      - 'assets/album/full.zip'
+      - 'assets/album/thumb.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack archives
+        run: |
+          if [ -f assets/album/full.zip ]; then
+            mkdir -p assets/album/full
+            unzip -o assets/album/full.zip -d assets/album/full
+            rm assets/album/full.zip
+          fi
+          if [ -f assets/album/thumb.zip ]; then
+            mkdir -p assets/album/thumb
+            unzip -o assets/album/thumb.zip -d assets/album/thumb
+            rm assets/album/thumb.zip
+          fi
+      - name: Commit extracted photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/album/full assets/album/thumb
+          git diff --cached --quiet || git commit -m "Unpack photo wall images"
+          git push
