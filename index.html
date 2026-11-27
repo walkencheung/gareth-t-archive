@@ -705,10 +705,11 @@
           box.appendChild(b);
         });
       }
+      var liveSongs = DATA.songs;
       function renderFeed() {
         var body = document.getElementById("feedBody");
         if (feedFilter === "music") {
-          body.innerHTML = songListHTML(DATA.songs);
+          body.innerHTML = songListHTML(liveSongs);
           return;
         }
         if (feedFilter === "interview") {
@@ -851,13 +852,29 @@
         }
       });
 
+      /* ---------- Live song refresh ---------- */
+      function renderSongs() {
+        var el = document.getElementById("songCatalog");
+        if (el) el.innerHTML = songListHTML(liveSongs);
+        if (typeof feedFilter !== "undefined" && feedFilter === "music") {
+          var body = document.getElementById("feedBody");
+          if (body) body.innerHTML = songListHTML(liveSongs);
+        }
+      }
+      fetch("songs.json", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          if (j && j.songs && j.songs.length) { liveSongs = j.songs; renderSongs(); }
+        })
+        .catch(function () {});
+
       /* ---------- Initial render ---------- */
       document.getElementById("interviewList").innerHTML =
         DATA.interviews.map(interviewCard).join("");
       bindInterviewPlays(document.getElementById("interviewList"));
       document.getElementById("concertWrap").innerHTML =
         DATA.concerts.map(concertCard).join("");
-      document.getElementById("songCatalog").innerHTML = songListHTML(DATA.songs);
+      renderSongs();
       document.getElementById("timelineList").innerHTML = DATA.timeline.map(function (t) {
         var h = '<li><span class="dot"></span><p class="when">' + esc(t.date_label) + " · " +
           esc(TIMELINE_LABEL[t.category] || t.category) + '</p><h3>' + esc(t.title) + "</h3>";
