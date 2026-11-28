@@ -822,7 +822,15 @@
           btn.addEventListener("click", function () {
             var cover = btn.closest(".iv-cover");
             if (!cover) return;
+            document.querySelectorAll(".iv-cover .iv-frame").forEach(function (fr) {
+              var c = fr.closest(".iv-cover");
+              if (c && c !== cover && c._savedHTML) {
+                c.innerHTML = c._savedHTML;
+                bindInterviewPlays(c);
+              }
+            });
             var vid = btn.getAttribute("data-play");
+            cover._savedHTML = cover.innerHTML;
             cover.innerHTML = '<iframe class="iv-frame" src="https://www.youtube.com/embed/' +
               encodeURIComponent(vid) + '?autoplay=1&rel=0" title="訪問影片" ' +
               'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
