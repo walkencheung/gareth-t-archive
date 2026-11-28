@@ -392,11 +392,10 @@
 
     <main class="wrap">
       <nav class="tabnav" id="tabnav" aria-label="板塊">
-        <a href="#tab-replies">留言回覆</a>
-        <a href="#tab-interviews">採訪</a>
-        <a href="#tab-endorsements">代言</a>
         <a href="#tab-concerts">演唱會</a>
-        <a href="#tab-photos">相片</a>
+        <a href="#tab-interviews">採訪</a>
+        <a href="#tab-replies">留言回覆</a>
+        <a href="#tab-endorsements">代言</a>
         <a href="#tab-album">相片牆</a>
         <a href="#tab-songs">唱片目錄</a>
         <a href="#tab-timeline">時間線</a>
@@ -409,34 +408,6 @@
           <p>只參加公開、允許粉絲參與嘅活動。買飛只用官方票務頁（Cityline 等官方渠道），唔好輕信付費代購、黃牛同所謂「內部票」；主辦方唔會私信索要押金，任何「內部票、代搶、墊付」都係騙局。</p>
           <p class="dim">發現假票、黃牛或詐騙線索：唔好付款、唔好傳證件相，直接去下面嘅官方渠道核實。</p>
         </div>
-      </section>
-
-      <section class="tabpane" id="tab-replies" aria-label="留言回覆">
-        <div class="sec-head">
-          <h2 class="font-display">留言回覆</h2>
-          <p>佢喺自己帖文下面回覆樂迷嘅留言——上面係對方講嘅，下面係佢回嘅；回唔到原留言嘅就只顯示佢回嘅一句同原帖連結</p>
-        </div>
-        <div class="chips" role="group" aria-label="回覆平台" id="replyChips"></div>
-        <div class="stack" id="replyList"></div>
-        <p class="dim" id="replyNote" style="margin-top:12px"></p>
-      </section>
-
-      <section class="tabpane" id="tab-interviews" aria-label="採訪">
-        <div class="sec-head">
-          <h2 class="font-display">採訪</h2>
-          <p>佢全部嘅文字專訪同訪問影片——唔止 YouTube，仲有 Facebook、Instagram、Bilibili、ViuTV、電台電視同華納 Warner Music 嘅紀錄片／幕後特輯；每篇都有封面，按時間排，新嘅喺上面、舊嘅喺下面</p>
-        </div>
-        <div class="chips" role="group" aria-label="採訪分類" id="ivChips"></div>
-        <div class="stack" id="interviewList"></div>
-      </section>
-
-      <section class="tabpane" id="tab-endorsements" aria-label="代言及品牌合作">
-        <div class="sec-head">
-          <h2 class="font-display">代言及品牌合作</h2>
-          <p>代言人同品牌合作分開標；有片嘅可以直接撳入去睇，影片同相片都可以篩</p>
-        </div>
-        <div class="chips" role="group" aria-label="代言分類" id="endoChips"></div>
-        <div class="stack" id="endoList"></div>
       </section>
 
       <section class="tabpane" id="tab-concerts" aria-label="演唱會">
@@ -452,12 +423,32 @@
         <p class="credit-line">官方海報 · 相片：U Lifestyle / 星島頭條</p>
       </section>
 
-      <section class="tabpane" id="tab-photos" aria-label="相片">
+      <section class="tabpane" id="tab-interviews" aria-label="採訪">
         <div class="sec-head">
-          <h2 class="font-display">相片</h2>
-          <p>站主逐張核實過嘅 Gareth.T 本人相片</p>
+          <h2 class="font-display">採訪</h2>
+          <p>佢全部嘅文字專訪同訪問影片——唔止 YouTube，仲有 Facebook、Instagram、Bilibili、ViuTV、電台電視同華納 Warner Music 嘅紀錄片／幕後特輯；每篇都有封面，按時間排，新嘅喺上面、舊嘅喺下面</p>
         </div>
-        <div class="press-grid" id="pressGrid"></div>
+        <div class="chips" role="group" aria-label="採訪分類" id="ivChips"></div>
+        <div class="stack" id="interviewList"></div>
+      </section>
+
+      <section class="tabpane" id="tab-replies" aria-label="留言回覆">
+        <div class="sec-head">
+          <h2 class="font-display">留言回覆</h2>
+          <p>佢喺自己帖文下面回覆樂迷嘅留言——上面係對方講嘅，下面係佢回嘅；回唔到原留言嘅就只顯示佢回嘅一句同原帖連結</p>
+        </div>
+        <div class="chips" role="group" aria-label="回覆平台" id="replyChips"></div>
+        <div class="stack" id="replyList"></div>
+        <p class="dim" id="replyNote" style="margin-top:12px"></p>
+      </section>
+
+      <section class="tabpane" id="tab-endorsements" aria-label="代言及品牌合作">
+        <div class="sec-head">
+          <h2 class="font-display">代言及品牌合作</h2>
+          <p>代言人同品牌合作分開標；有片嘅可以直接撳入去睇，影片同相片都可以篩</p>
+        </div>
+        <div class="chips" role="group" aria-label="代言分類" id="endoChips"></div>
+        <div class="stack" id="endoList"></div>
       </section>
 
       <section class="tabpane" id="tab-album" aria-label="相片牆">
@@ -465,6 +456,9 @@
           <h2 class="font-display">相片牆 · 相簿</h2>
           <p>站主收藏相簿：由佢公開 Instagram 帖文下載落嚟嘅相，共 997 張（已去重），另有 7 條 Threads 影片。撳任何一張放大睇，可以逐張前後翻，影片撳入去直接播</p>
         </div>
+                <h3 class="font-display">精選相片</h3>
+        <p class="dim">站主逐張核實過嘅 Gareth.T 本人相片</p>
+        <div class="press-grid" id="pressGrid" style="margin-bottom:16px"></div>
         <div id="albumWall"></div>
       </section>
 
