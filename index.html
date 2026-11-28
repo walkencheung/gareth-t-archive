@@ -336,6 +336,34 @@
       .lb-nav:disabled { opacity: 0.3; }
       .lb-cap { padding: 16px 0 8px; text-align: center; font-size: 14px; color: #fff; margin: 0; }
       .lb-cap.dim { color: rgba(255,255,255,0.8); }
+
+      /* Section tab navigation */
+      .tabnav {
+        position: sticky; top: 0; z-index: 20;
+        display: flex; flex-wrap: wrap; gap: 8px;
+        padding: 12px 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 20px;
+      }
+      .tabnav button {
+        min-height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        padding: 0 16px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tabnav button[aria-pressed="true"] {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+      .tabpane[hidden] { display: none; }
     </style>
   </head>
   <body>
@@ -369,7 +397,19 @@
         </div>
       </section>
 
-      <section aria-label="留言回覆">
+      <nav class="tabnav" id="tabnav" aria-label="板塊">
+        <button type="button" data-tab="replies" aria-pressed="true">留言回覆</button>
+        <button type="button" data-tab="interviews" aria-pressed="false">採訪</button>
+        <button type="button" data-tab="endorsements" aria-pressed="false">代言</button>
+        <button type="button" data-tab="concerts" aria-pressed="false">演唱會</button>
+        <button type="button" data-tab="photos" aria-pressed="false">相片</button>
+        <button type="button" data-tab="album" aria-pressed="false">相片牆</button>
+        <button type="button" data-tab="songs" aria-pressed="false">唱片目錄</button>
+        <button type="button" data-tab="timeline" aria-pressed="false">時間線</button>
+        <button type="button" data-tab="channels" aria-pressed="false">官方渠道</button>
+      </nav>
+
+      <section class="tabpane" id="tab-replies" aria-label="留言回覆">
         <div class="sec-head">
           <h2 class="font-display">留言回覆</h2>
           <p>佢喺自己帖文下面回覆樂迷嘅留言——上面係對方講嘅，下面係佢回嘅；回唔到原留言嘅就只顯示佢回嘅一句同原帖連結</p>
@@ -379,7 +419,7 @@
         <p class="dim" id="replyNote" style="margin-top:12px"></p>
       </section>
 
-      <section aria-label="採訪">
+      <section class="tabpane" id="tab-interviews" aria-label="採訪">
         <div class="sec-head">
           <h2 class="font-display">採訪</h2>
           <p>佢全部嘅文字專訪同訪問影片——唔止 YouTube，仲有 Facebook、Instagram、Bilibili、ViuTV、電台電視同華納 Warner Music 嘅紀錄片／幕後特輯；每篇都有封面，按時間排，新嘅喺上面、舊嘅喺下面</p>
@@ -388,7 +428,7 @@
         <div class="stack" id="interviewList"></div>
       </section>
 
-      <section aria-label="代言及品牌合作">
+      <section class="tabpane" id="tab-endorsements" aria-label="代言及品牌合作">
         <div class="sec-head">
           <h2 class="font-display">代言及品牌合作</h2>
           <p>代言人同品牌合作分開標；有片嘅可以直接撳入去睇，影片同相片都可以篩</p>
@@ -397,7 +437,7 @@
         <div class="stack" id="endoList"></div>
       </section>
 
-      <section aria-label="演唱會">
+      <section class="tabpane" id="tab-concerts" aria-label="演唱會">
         <div class="sec-head">
           <h2 class="font-display">演唱會專區</h2>
           <p>票價、售票安排、歌單同嘉賓</p>
@@ -410,7 +450,7 @@
         <p class="credit-line">官方海報 · 相片：U Lifestyle / 星島頭條</p>
       </section>
 
-      <section aria-label="相片">
+      <section class="tabpane" id="tab-photos" aria-label="相片">
         <div class="sec-head">
           <h2 class="font-display">相片</h2>
           <p>站主逐張核實過嘅 Gareth.T 本人相片</p>
@@ -418,7 +458,7 @@
         <div class="press-grid" id="pressGrid"></div>
       </section>
 
-      <section aria-label="相片牆">
+      <section class="tabpane" id="tab-album" aria-label="相片牆">
         <div class="sec-head">
           <h2 class="font-display">相片牆 · 相簿</h2>
           <p>站主收藏相簿：由佢公開 Instagram 帖文下載落嚟嘅相，共 997 張（已去重），另有 7 條 Threads 影片。撳任何一張放大睇，可以逐張前後翻，影片撳入去直接播</p>
@@ -426,7 +466,7 @@
         <div id="albumWall"></div>
       </section>
 
-      <section aria-label="唱片目錄">
+      <section class="tabpane" id="tab-songs" aria-label="唱片目錄">
         <div class="sec-head">
           <h2 class="font-display">唱片目錄</h2>
         </div>
@@ -434,7 +474,7 @@
         <p class="credit-line">資料來源：Apple Music</p>
       </section>
 
-      <section aria-label="大事時間線">
+      <section class="tabpane" id="tab-timeline" aria-label="大事時間線">
         <div class="sec-head">
           <h2 class="font-display">完整檔案 · 大事時間線</h2>
           <p>出道、專輯、演唱會、獎項同重要活動，一路由 2018 年排到紅館</p>
@@ -442,7 +482,7 @@
         <ol class="timeline" id="timelineList"></ol>
       </section>
 
-      <section aria-label="官方渠道">
+      <section class="tabpane" id="tab-channels" aria-label="官方渠道">
         <div class="sec-head">
           <h2 class="font-display">官方渠道直達</h2>
           <p>買飛同活動詳情認準官方渠道，唔好經代購／黃牛；撳入去睇佢嘅公開主頁原帖</p>
@@ -823,10 +863,14 @@
         var h = '<article class="card">';
         if (r.parent_text) {
           h += '<div class="reply-parent"><span class="who">' + esc(r.parent_user || "對方") + " 說：</span><p>" + esc(r.parent_text) + "</p></div>";
+        } else if (r.standalone) {
+          h += '<div class="reply-parent"><span class="who">原留言</span><p class="dim">佢直接喺帖文下面留言，冇針對邊個回覆。</p></div>';
         } else {
           h += '<div class="reply-parent"><span class="who">原留言</span><p class="dim">原留言已無法確認（對方可能改名、刪咗留言，或者個帳號已經唔見咗）。</p></div>';
         }
-        h += '<div class="reply-mine"><span class="who">Gareth.T 回覆：</span><p>' + esc(r.reply_text) + "</p></div>";
+        var replyHtml = r.reply_text ? esc(r.reply_text) :
+          (r.reply_is_image ? "（圖片回覆，撳「睇原帖」去睇）" : "（回覆內容未能顯示）");
+        h += '<div class="reply-mine"><span class="who">Gareth.T 回覆：</span><p>' + replyHtml + "</p></div>";
         h += '<div class="meta-row" style="margin-top:10px"><span class="meta-date">' + esc(fmtDate(r.date) || r.date || "") + "</span>" +
           (r.post_url ? '<a class="out-link" href="' + esc(r.post_url) + '" target="_blank" rel="noreferrer">睇原帖 →</a>' : "") + "</div></article>";
         return h;
@@ -994,6 +1038,26 @@
       renderEndoChips();
       renderEndorsements();
       loadReplies();
+
+      /* ---------- Section tabs ---------- */
+      var TAB_ORDER = ["replies", "interviews", "endorsements", "concerts", "photos", "album", "songs", "timeline", "channels"];
+      function showTab(key, scroll) {
+        TAB_ORDER.forEach(function (k) {
+          var pane = document.getElementById("tab-" + k);
+          if (pane) pane.hidden = (k !== key);
+        });
+        document.querySelectorAll("#tabnav button").forEach(function (b) {
+          b.setAttribute("aria-pressed", b.getAttribute("data-tab") === key ? "true" : "false");
+        });
+        if (scroll) {
+          var nav = document.getElementById("tabnav");
+          if (nav) nav.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+      document.querySelectorAll("#tabnav button").forEach(function (b) {
+        b.addEventListener("click", function () { showTab(b.getAttribute("data-tab"), true); });
+      });
+      showTab("replies", false);
     </script>
   </body>
 </html>
