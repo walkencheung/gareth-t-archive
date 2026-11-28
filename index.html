@@ -903,7 +903,7 @@
         } else if (r.standalone) {
           h += '<div class="reply-parent"><span class="who">原留言</span><p class="dim">佢直接喺帖文下面留言，冇針對邊個回覆。</p></div>';
         } else {
-          h += '<div class="reply-parent"><span class="who">原留言</span><p class="dim">原留言已無法確認（對方可能改名、刪咗留言，或者個帳號已經唔見咗）。</p></div>';
+          h += '<div class="reply-parent"><span class="who">原留言</span><p class="dim">未能配對到原留言，撳「睇原帖」可以睇返成個留言串。</p></div>';
         }
         var replyHtml = r.reply_text ? esc(r.reply_text) :
           (r.reply_is_image ? "（圖片回覆，撳「睇原帖」去睇）" : "（回覆內容未能顯示）");
