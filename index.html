@@ -823,9 +823,9 @@
             var cover = btn.closest(".iv-cover");
             if (!cover) return;
             var vid = btn.getAttribute("data-play");
-            cover.innerHTML = '<iframe class="iv-frame" src="https://www.youtube-nocookie.com/embed/' +
+            cover.innerHTML = '<iframe class="iv-frame" src="https://www.youtube.com/embed/' +
               encodeURIComponent(vid) + '?autoplay=1&rel=0" title="訪問影片" ' +
-              'referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+              'referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
           });
         });
       }
