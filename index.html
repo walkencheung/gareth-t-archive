@@ -41,7 +41,7 @@
         }
       }
       * { box-sizing: border-box; }
-      html { -webkit-text-size-adjust: 100%; }
+      html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
       body {
         margin: 0;
         background: var(--bg);
@@ -337,7 +337,7 @@
       .lb-cap { padding: 16px 0 8px; text-align: center; font-size: 14px; color: #fff; margin: 0; }
       .lb-cap.dim { color: rgba(255,255,255,0.8); }
 
-      /* Section tab navigation */
+      /* Section navigation */
       .tabnav {
         position: sticky; top: 0; z-index: 20;
         display: flex; flex-wrap: wrap; gap: 8px;
@@ -346,8 +346,9 @@
         border-bottom: 1px solid var(--border);
         margin-bottom: 20px;
       }
-      .tabnav button {
+      .tabnav a {
         min-height: 40px;
+        display: inline-flex; align-items: center;
         border-radius: 999px;
         border: 1px solid var(--border);
         background: var(--surface);
@@ -357,13 +358,14 @@
         font-weight: 700;
         cursor: pointer;
         font-family: inherit;
+        text-decoration: none;
       }
-      .tabnav button[aria-pressed="true"] {
+      .tabnav a:active {
         border-color: var(--accent);
         background: var(--accent);
         color: var(--accent-ink);
       }
-      .tabpane[hidden] { display: none; }
+      section[id^="tab-"] { scroll-margin-top: 76px; }
     </style>
   </head>
   <body>
@@ -389,6 +391,18 @@
     </header>
 
     <main class="wrap">
+      <nav class="tabnav" id="tabnav" aria-label="板塊">
+        <a href="#tab-replies">留言回覆</a>
+        <a href="#tab-interviews">採訪</a>
+        <a href="#tab-endorsements">代言</a>
+        <a href="#tab-concerts">演唱會</a>
+        <a href="#tab-photos">相片</a>
+        <a href="#tab-album">相片牆</a>
+        <a href="#tab-songs">唱片目錄</a>
+        <a href="#tab-timeline">時間線</a>
+        <a href="#tab-channels">官方渠道</a>
+      </nav>
+
       <section class="first" aria-label="安全提示">
         <div class="card notice">
           <h2>⚠ 安全提示 · 小心被騙</h2>
@@ -396,18 +410,6 @@
           <p class="dim">發現假票、黃牛或詐騙線索：唔好付款、唔好傳證件相，直接去下面嘅官方渠道核實。</p>
         </div>
       </section>
-
-      <nav class="tabnav" id="tabnav" aria-label="板塊">
-        <button type="button" data-tab="replies" aria-pressed="true">留言回覆</button>
-        <button type="button" data-tab="interviews" aria-pressed="false">採訪</button>
-        <button type="button" data-tab="endorsements" aria-pressed="false">代言</button>
-        <button type="button" data-tab="concerts" aria-pressed="false">演唱會</button>
-        <button type="button" data-tab="photos" aria-pressed="false">相片</button>
-        <button type="button" data-tab="album" aria-pressed="false">相片牆</button>
-        <button type="button" data-tab="songs" aria-pressed="false">唱片目錄</button>
-        <button type="button" data-tab="timeline" aria-pressed="false">時間線</button>
-        <button type="button" data-tab="channels" aria-pressed="false">官方渠道</button>
-      </nav>
 
       <section class="tabpane" id="tab-replies" aria-label="留言回覆">
         <div class="sec-head">
@@ -1038,26 +1040,6 @@
       renderEndoChips();
       renderEndorsements();
       loadReplies();
-
-      /* ---------- Section tabs ---------- */
-      var TAB_ORDER = ["replies", "interviews", "endorsements", "concerts", "photos", "album", "songs", "timeline", "channels"];
-      function showTab(key, scroll) {
-        TAB_ORDER.forEach(function (k) {
-          var pane = document.getElementById("tab-" + k);
-          if (pane) pane.hidden = (k !== key);
-        });
-        document.querySelectorAll("#tabnav button").forEach(function (b) {
-          b.setAttribute("aria-pressed", b.getAttribute("data-tab") === key ? "true" : "false");
-        });
-        if (scroll) {
-          var nav = document.getElementById("tabnav");
-          if (nav) nav.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
-      document.querySelectorAll("#tabnav button").forEach(function (b) {
-        b.addEventListener("click", function () { showTab(b.getAttribute("data-tab"), true); });
-      });
-      showTab("replies", false);
     </script>
   </body>
 </html>
